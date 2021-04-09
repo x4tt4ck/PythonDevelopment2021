@@ -4,7 +4,7 @@
 15 Puzzle game
 '''
 
-import tkinter
+import tkinter as tk
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -22,6 +22,23 @@ class Application(tk.Frame):
         self.timeLabel.grid(columnspan=2)
         self.settime()
         '''
+        self.exitButton = tk.Button(self, text="Exit", command=self.quit)
+        self.refreshButton = tk.Button(self, text="New", command=self.refresh)
+        self.gameButtons = []
+        for i in range(1, 16):
+            self.gameButtons.append(
+                tk.Button(self, text=str(i), command=self.action)
+            )
+        self.exitButton.grid(row=0, column=0)
+        self.refreshButton.grid(row=0, column=1)
+        for i in range(15):
+            self.gameButtons[i].grid(row=1+i//4, column=i%4)
+
+    def refresh(self):
+        pass
+
+    def action(self):
+        pass
 
 app = Application()
 app.master.title('Игра в 15')
