@@ -37,7 +37,9 @@ class Application(tk.Frame):
             self.gameButtons[i].grid(row=1+i//4, column=i%4)
 
     def refresh(self):
-        pass
+        shuffle(self.gameButtons)
+        for i in range(15):
+            self.gameButtons[i].grid(row=1+i//4, column=i%4)
 
     def action(self):
         pass
