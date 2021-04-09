@@ -5,6 +5,7 @@
 '''
 
 import tkinter as tk
+from random import shuffle
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -31,6 +32,7 @@ class Application(tk.Frame):
             )
         self.exitButton.grid(row=0, column=0)
         self.refreshButton.grid(row=0, column=1)
+        shuffle(self.gameButtons)
         for i in range(15):
             self.gameButtons[i].grid(row=1+i//4, column=i%4)
 
