@@ -32,9 +32,10 @@ class Application(tk.Frame):
         # Game buttons
         self.gameButtons = []
         for i in range(1, 16):
-            self.gameButtons.append(
-                tk.Button(self, text=str(i), command=self.action)
-            )
+            B = tk.Button(self, text=str(i))
+            B["command"] = lambda g=B.grid_info: self.action(g)
+            self.gameButtons.append(B)
+        self.emptyspace = {'row': 4, 'col': 3}
 
         # Control buttons placement
         self.exitButton.grid(row=0, column=0, columnspan=2, sticky="WE")
@@ -42,16 +43,39 @@ class Application(tk.Frame):
 
         # Game buttons placement
         shuffle(self.gameButtons)
-        for i in range(15):
-            self.gameButtons[i].grid(row=1+i//4, column=i%4, sticky="NEWS")
+        self.gameButtons.append("Empty")
+        for i in range(16):
+            if self.gameButtons[i] != "Empty":
+                self.gameButtons[i].grid(row=1+i//4, column=i%4, sticky="NEWS")
 
     def refresh(self):
+        self.emptyspace = {'row': 4, 'col': 3}
+        self.gameButtons.remove("Empty")
         shuffle(self.gameButtons)
         for i in range(15):
             self.gameButtons[i].grid(row=1+i//4, column=i%4)
+        self.gameButtons.append("Empty")
 
-    def action(self):
-        pass
+    def action(self, g):
+
+        col = g()['column']
+        row = g()['row']
+        ecol = self.emptyspace['col']
+        erow = self.emptyspace['row']
+        eind = (erow-1)*4 + ecol
+        ind = (row-1)*4 + col
+
+        print(f"Button pressed! Empty:{eind}({erow},{ecol}), Button:{ind}({row},{col})")
+
+        if col == ecol and abs(row - erow) == 1:
+            self.gameButtons[ind].grid(row=erow)
+            self.emptyspace['row'] = row
+            self.gameButtons[ind], self.gameButtons[eind] = self.gameButtons[eind], self.gameButtons[ind]
+
+        elif row == erow and abs(col - ecol) == 1:
+            self.gameButtons[ind].grid(column=ecol)
+            self.emptyspace['col'] = col
+            self.gameButtons[ind], self.gameButtons[eind] = self.gameButtons[eind], self.gameButtons[ind]
 
 app = Application()
 app.master.title('Игра в 15')
