@@ -61,20 +61,20 @@ class Application(tk.Frame):
         prev = -1
         for button in self.gameButtons:
             if button != "Empty":
-                print(button["text"], prev)
+#               print(button["text"], prev)
                 if int(button["text"]) < prev:
-                    print("Not yet!")
+#                    print("Not yet!")
                     win = False
                     break
                 prev = int(button["text"])
 
         if win == True:
             self.win()
-            print("Refreshing...")
+#            print("Refreshing...")
             self.refresh()
 
     def win(self):
-        print("Win!")
+#        print("Win!")
         W = tk.Tk()
         W.title("Поздравляем!")
         L = tk.Label(W, text="Вы победили!")
@@ -91,7 +91,7 @@ class Application(tk.Frame):
         eind = (erow-1)*4 + ecol
         ind = (row-1)*4 + col
 
-        print(f"Button pressed! Empty:{eind}({erow},{ecol}), Button:{ind}({row},{col})")
+#        print(f"Button pressed! Empty:{eind}({erow},{ecol}), Button:{ind}({row},{col})")
 
         if col == ecol and abs(row - erow) == 1:
             self.gameButtons[ind].grid(row=erow)
