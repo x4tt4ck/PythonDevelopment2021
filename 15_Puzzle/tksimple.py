@@ -42,7 +42,7 @@ class Application(tk.Frame):
         self.refreshButton.grid(row=0, column=2, columnspan=2, sticky="WE")
 
         # Game buttons placement
-        #shuffle(self.gameButtons)
+        shuffle(self.gameButtons)
         self.gameButtons.append("Empty")
         for i in range(16):
             if self.gameButtons[i] != "Empty":
@@ -98,14 +98,12 @@ class Application(tk.Frame):
             self.emptyspace['row'] = row
             self.gameButtons[ind], self.gameButtons[eind] = self.gameButtons[eind], self.gameButtons[ind]
             self.check()
-            #self.refresh()
 
         elif row == erow and abs(col - ecol) == 1:
             self.gameButtons[ind].grid(column=ecol)
             self.emptyspace['col'] = col
             self.gameButtons[ind], self.gameButtons[eind] = self.gameButtons[eind], self.gameButtons[ind]
             self.check()
-            #self.refresh()
 
 app = Application()
 app.master.title('Игра в 15')
