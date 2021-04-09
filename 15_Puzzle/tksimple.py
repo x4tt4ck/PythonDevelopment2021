@@ -42,7 +42,7 @@ class Application(tk.Frame):
         self.refreshButton.grid(row=0, column=2, columnspan=2, sticky="WE")
 
         # Game buttons placement
-        shuffle(self.gameButtons)
+        #shuffle(self.gameButtons)
         self.gameButtons.append("Empty")
         for i in range(16):
             if self.gameButtons[i] != "Empty":
@@ -55,6 +55,32 @@ class Application(tk.Frame):
         for i in range(15):
             self.gameButtons[i].grid(row=1+i//4, column=i%4)
         self.gameButtons.append("Empty")
+
+    def check(self):
+        win = True
+        prev = -1
+        for button in self.gameButtons:
+            if button != "Empty":
+                print(button["text"], prev)
+                if int(button["text"]) < prev:
+                    print("Not yet!")
+                    win = False
+                    break
+                prev = int(button["text"])
+
+        if win == True:
+            self.win()
+            print("Refreshing...")
+            self.refresh()
+
+    def win(self):
+        print("Win!")
+        W = tk.Tk()
+        W.title("Поздравляем!")
+        L = tk.Label(W, text="Вы победили!")
+        L.grid()
+        B = tk.Button(W, text="Еще разок!", command=W.destroy)
+        B.grid()
 
     def action(self, g):
 
@@ -71,11 +97,15 @@ class Application(tk.Frame):
             self.gameButtons[ind].grid(row=erow)
             self.emptyspace['row'] = row
             self.gameButtons[ind], self.gameButtons[eind] = self.gameButtons[eind], self.gameButtons[ind]
+            self.check()
+            #self.refresh()
 
         elif row == erow and abs(col - ecol) == 1:
             self.gameButtons[ind].grid(column=ecol)
             self.emptyspace['col'] = col
             self.gameButtons[ind], self.gameButtons[eind] = self.gameButtons[eind], self.gameButtons[ind]
+            self.check()
+            #self.refresh()
 
 app = Application()
 app.master.title('Игра в 15')
