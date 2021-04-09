@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 
 '''
-TkInter example
-Launches a window with "Quit" button.
+15 Puzzle game
 '''
 
-import tkinter as tk
-import time
+import tkinter
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -15,6 +13,7 @@ class Application(tk.Frame):
         self.createWidgets()
 
     def createWidgets(self):
+        '''
         self.quitButton = tk.Button(self, text="Quit", command=self.quit)
         self.timeButton = tk.Button(self, text="Time", command=self.settime)
         self.timeLabel = tk.Label(self)
@@ -22,10 +21,8 @@ class Application(tk.Frame):
         self.timeButton.grid(row=0, column=1)
         self.timeLabel.grid(columnspan=2)
         self.settime()
-
-    def settime(self):
-        self.timeLabel["text"] = time.strftime("%c")
+        '''
 
 app = Application()
-app.master.title('Sample application')
+app.master.title('Игра в 15')
 app.mainloop()
